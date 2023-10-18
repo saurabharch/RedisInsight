@@ -12,7 +12,10 @@ import {
   getDatabaseConfigInfoAction,
   instancesSelector,
 } from 'uiSrc/slices/instances/instances'
-import { resetRecommendationsHighlighting } from 'uiSrc/slices/recommendations/recommendations'
+import {
+  fetchRecommendationsAction,
+  resetRecommendationsHighlighting
+} from 'uiSrc/slices/recommendations/recommendations'
 import {
   appContextSelector,
   setAppContextConnectedInstanceId,
@@ -20,13 +23,11 @@ import {
   setDbConfig,
 } from 'uiSrc/slices/app/context'
 import { resetPatternKeysData } from 'uiSrc/slices/browser/keys'
-import { BrowserStorageItem, FeatureFlags } from 'uiSrc/constants'
+import { BrowserStorageItem } from 'uiSrc/constants'
 import { localStorageService } from 'uiSrc/services'
-import { FeatureFlagComponent } from 'uiSrc/components'
 import { resetOutput } from 'uiSrc/slices/cli/cli-output'
 import { cliSettingsSelector } from 'uiSrc/slices/cli/cli-settings'
 import BottomGroupComponents from 'uiSrc/components/bottom-group-components/BottomGroupComponents'
-import LiveTimeRecommendations from 'uiSrc/components/live-time-recommendations'
 import { monitorSelector, setMonitorInitialState } from 'uiSrc/slices/cli/monitor'
 import { setInitialPubSubState } from 'uiSrc/slices/pubsub/pubsub'
 import { setBulkActionsInitialState } from 'uiSrc/slices/browser/bulkActions'
@@ -80,6 +81,7 @@ const InstancePage = ({ routes = [] }: Props) => {
     }))
     dispatch(getDatabaseConfigInfoAction(connectionInstanceId))
     dispatch(fetchConnectedInstanceInfoAction(connectionInstanceId))
+    dispatch(fetchRecommendationsAction(connectionInstanceId))
 
     if (contextInstanceId && contextInstanceId !== connectionInstanceId) {
       // rerender children from scratch to clear all component states
@@ -135,9 +137,6 @@ const InstancePage = ({ routes = [] }: Props) => {
 
   return (
     <>
-      <FeatureFlagComponent name={FeatureFlags.insightsRecommendations}>
-        <LiveTimeRecommendations />
-      </FeatureFlagComponent>
       <EuiResizableContainer
         direction="vertical"
         style={{ height: '100%' }}

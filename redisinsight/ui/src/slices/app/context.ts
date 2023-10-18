@@ -8,7 +8,6 @@ import {
   DEFAULT_SLOWLOG_DURATION_UNIT,
   KeyTypes,
   DEFAULT_SHOW_HIDDEN_RECOMMENDATIONS,
-  DurationUnits,
 } from 'uiSrc/constants'
 import { localStorageService, setDBConfigStorageField } from 'uiSrc/services'
 import { RootState } from '../store'
@@ -53,11 +52,6 @@ export const initialState: StateAppContext = {
   },
   workbench: {
     script: '',
-    enablementArea: {
-      isMinimized: localStorageService?.get(BrowserStorageItem.isEnablementAreaMinimized) ?? false,
-      search: '',
-      itemScrollTop: 0,
-    },
     panelSizes: {
       vertical: {}
     }
@@ -178,24 +172,6 @@ const appContextSlice = createSlice({
     setLastPageContext: (state, { payload }: { payload: string }) => {
       state.lastPage = payload
     },
-    setWorkbenchEASearch: (state, { payload }: { payload: any }) => {
-      const prevValue = state.workbench.enablementArea.search
-      state.workbench.enablementArea.search = payload
-      if (prevValue !== payload) {
-        state.workbench.enablementArea.itemScrollTop = 0
-      }
-    },
-    setWorkbenchEAItemScrollTop: (state, { payload }: { payload: any }) => {
-      state.workbench.enablementArea.itemScrollTop = payload || 0
-    },
-    resetWorkbenchEASearch: (state) => {
-      state.workbench.enablementArea.search = ''
-      state.workbench.enablementArea.itemScrollTop = 0
-    },
-    setWorkbenchEAMinimized: (state, { payload }) => {
-      state.workbench.enablementArea.isMinimized = payload
-      localStorageService.set(BrowserStorageItem.isEnablementAreaMinimized, payload)
-    },
     resetBrowserTree: (state) => {
       state.browser.tree.selectedLeaf = {}
       state.browser.tree.openNodes = {}
@@ -249,10 +225,6 @@ export const {
   setWorkbenchScript,
   setWorkbenchVerticalPanelSizes,
   setLastPageContext,
-  setWorkbenchEASearch,
-  resetWorkbenchEASearch,
-  setWorkbenchEAMinimized,
-  setWorkbenchEAItemScrollTop,
   setPubSubFieldsContext,
   setBrowserBulkActionOpen,
   setLastAnalyticsPage,
@@ -278,8 +250,6 @@ export const appContextWorkbench = (state: RootState) =>
   state.app.context.workbench
 export const appContextSelectedKey = (state: RootState) =>
   state.app.context.browser.keyList.selectedKey
-export const appContextWorkbenchEA = (state: RootState) =>
-  state.app.context.workbench.enablementArea
 export const appContextPubSub = (state: RootState) =>
   state.app.context.pubsub
 export const appContextAnalytics = (state: RootState) =>
