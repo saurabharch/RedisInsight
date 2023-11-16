@@ -13,7 +13,7 @@ import testcafe from 'testcafe';
                 .src((process.env.TEST_FILES || 'tests/electron/**/*.e2e.ts').split('\n'))
                 .browsers(['electron'])
                 .screenshots({
-                    path: './report/screenshots/',
+                    path: 'report/screenshots/',
                     takeOnFails: true,
                     pathPattern: '${USERAGENT}/${DATE}_${TIME}/${FIXTURE}_${TEST}_${FILE_INDEX}.png',
                 })
@@ -35,7 +35,7 @@ import testcafe from 'testcafe';
                 .run({
                     skipJsErrors: true,
                     browserInitTimeout: 60000,
-                    selectorTimeout: 5000,
+                    selectorTimeout: 2000,
                     assertionTimeout: 5000,
                     speed: 1,
                     quarantineMode: { successThreshold: 1, attemptLimit: 3 },
