@@ -11,7 +11,7 @@ const databaseHelper = new DatabaseHelper();
 const databaseAPIRequests = new DatabaseAPIRequests();
 
 const keyNames = [Common.generateWord(20), Common.generateWord(20)];
-const dbParameters = { host: ossStandaloneRedisearch.host, port: ossStandaloneRedisearch.port };
+const { host, port } = ossStandaloneRedisearch;
 
 fixture `Bulk Delete`
     .meta({ type: 'critical_path', rte: rte.standalone })
@@ -26,7 +26,7 @@ fixture `Bulk Delete`
     })
     .afterEach(async() => {
         // Clear and delete database
-        await deleteAllKeysFromDB(dbParameters.host, dbParameters.port);
+        await deleteAllKeysFromDB(host, port);
         await databaseAPIRequests.deleteStandaloneDatabaseApi(ossStandaloneRedisearch);
     });
 test('Verify that when bulk deletion is completed, status Action completed is displayed', async t => {

@@ -12,7 +12,7 @@ const databaseHelper = new DatabaseHelper();
 const databaseAPIRequests = new DatabaseAPIRequests();
 const apiKeyRequests = new APIKeyRequests();
 
-const dbParameters = { host: ossStandaloneConfig.host, port: ossStandaloneConfig.port };
+const { host, port } = ossStandaloneConfig;
 const keyName = `TestSetKey-${ Common.generateWord(10) }`;
 const memberForSearch = `SearchField-${ Common.generateWord(5) }`;
 const keyToAddParameters = { membersCount: 500000, keyName, memberStartWith: 'setMember' };
@@ -31,8 +31,8 @@ fixture `Set Key verification`
     });
 test('Verify that user can search per exact member name in Set key in DB with 1 million of members', async t => {
     // Add 1000000 members to the set key
-    await populateSetWithMembers(dbParameters.host, dbParameters.port, keyToAddParameters);
-    await populateSetWithMembers(dbParameters.host, dbParameters.port, keyToAddParameters);
+    await populateSetWithMembers(host, port, keyToAddParameters);
+    await populateSetWithMembers(host, port, keyToAddParameters);
     // Add custom member to the set key
     await browserPage.openKeyDetails(keyName);
     await browserPage.addMemberToSet(memberForSearch);

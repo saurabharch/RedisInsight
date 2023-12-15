@@ -12,7 +12,7 @@ const databaseHelper = new DatabaseHelper();
 const databaseAPIRequests = new DatabaseAPIRequests();
 
 const keyNames = [Common.generateWord(20), Common.generateWord(20)];
-const dbParameters = { host: ossStandaloneRedisearch.host, port: ossStandaloneRedisearch.port };
+const { host, port } = ossStandaloneRedisearch;
 const keyToAddParameters = { keysCount: 10000, keyNameStartWith: 'hashKey' };
 const keyToAddParameters2 = { keysCount: 500000, keyNameStartWith: 'hashKey' };
 
@@ -29,7 +29,7 @@ fixture `Bulk Delete`
     })
     .afterEach(async() => {
         // Clear and delete database
-        await deleteAllKeysFromDB(dbParameters.host, dbParameters.port);
+        await deleteAllKeysFromDB(host, port);
         await databaseAPIRequests.deleteStandaloneDatabaseApi(ossStandaloneRedisearch);
     });
 test('Verify that user can access the bulk actions screen in the Browser', async t => {
@@ -61,7 +61,7 @@ test('Verify that user can see summary of scanned level', async t => {
     const messageText = 'To perform a bulk action, set the pattern or select the key type';
 
     // Add 10000 Hash keys
-    await populateDBWithHashes(dbParameters.host, dbParameters.port, keyToAddParameters);
+    await populateDBWithHashes(host, port, keyToAddParameters);
     // Open bulk actions
     await t.click(browserPage.bulkActionsButton);
     // Verify that user can see no pattern selected message when no key type and pattern applied for Bulk Delete
@@ -77,7 +77,7 @@ test('Verify that user can see summary of scanned level', async t => {
 });
 test('Verify that user can see blue progress line during the process of bulk deletion', async t => {
     // Add 500000 Hash keys
-    await populateDBWithHashes(dbParameters.host, dbParameters.port, keyToAddParameters2);
+    await populateDBWithHashes(host, port, keyToAddParameters2);
     // Filter and search by Hash keys added
     await browserPage.selectFilterGroupType(KeyTypesTexts.Hash);
     await browserPage.searchByKeyName('hashKey*');
@@ -90,8 +90,8 @@ test
     .before(async() => {
         await databaseHelper.acceptLicenseTermsAndAddDatabaseApi(ossStandaloneRedisearch);
         // Add 1000000 Hash keys
-        await populateDBWithHashes(dbParameters.host, dbParameters.port, keyToAddParameters2);
-        await populateDBWithHashes(dbParameters.host, dbParameters.port, keyToAddParameters2);
+        await populateDBWithHashes(host, port, keyToAddParameters2);
+        await populateDBWithHashes(host, port, keyToAddParameters2);
         // Filter and search by Hash keys added
         await browserPage.selectFilterGroupType(KeyTypesTexts.Hash);
         await browserPage.searchByKeyName('hashKey*');
@@ -108,7 +108,7 @@ test
     .before(async() => {
         await databaseHelper.acceptLicenseTermsAndAddDatabaseApi(ossStandaloneRedisearch);
         // Add 500000 keys
-        await populateDBWithHashes(dbParameters.host, dbParameters.port, keyToAddParameters2);
+        await populateDBWithHashes(host, port, keyToAddParameters2);
         // Filter and search by Hash keys added
         await browserPage.selectFilterGroupType(KeyTypesTexts.Hash);
         await browserPage.searchByKeyName('hashKey*');
@@ -143,7 +143,7 @@ test
             await t.click(browserPage.Toast.toastCloseButton);
         }
         // Add 10000 Hash keys
-        await populateDBWithHashes(dbParameters.host, dbParameters.port, keyToAddParameters);
+        await populateDBWithHashes(host, port, keyToAddParameters);
         // Filter by Hash keys
         await browserPage.selectFilterGroupType(KeyTypesTexts.Hash);
     })('Verify that after finishing bulk deletion user can see # of processed keys, # of deleted keys, # of errors, execution time', async t => {

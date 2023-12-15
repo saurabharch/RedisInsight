@@ -11,7 +11,7 @@ const browserPage = new BrowserPage();
 const databaseHelper = new DatabaseHelper();
 const databaseAPIRequests = new DatabaseAPIRequests();
 
-const dbParameters = { host: ossStandaloneRedisearch.host, port: ossStandaloneRedisearch.port };
+const { host, port } = ossStandaloneRedisearch;
 const filesToUpload = ['bulkUplAllKeyTypes.txt', 'bigKeysData.rtf'];
 const filePathes = {
     allKeysFile: path.join('..', '..', '..', '..', 'test-data', 'bulk-upload', filesToUpload[0]),
@@ -33,7 +33,7 @@ fixture `Bulk Upload`
     })
     .afterEach(async() => {
         // Clear and delete database
-        await deleteAllKeysFromDB(dbParameters.host, dbParameters.port);
+        await deleteAllKeysFromDB(host, port);
         await databaseAPIRequests.deleteStandaloneDatabaseApi(ossStandaloneRedisearch);
     });
 test('Verify bulk upload of different text docs formats', async t => {

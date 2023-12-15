@@ -12,7 +12,7 @@ const databaseHelper = new DatabaseHelper();
 const databaseAPIRequests = new DatabaseAPIRequests();
 const apiKeyRequests = new APIKeyRequests();
 
-const dbParameters = { host: ossStandaloneConfig.host, port: ossStandaloneConfig.port };
+const { host, port } = ossStandaloneConfig;
 const keyName = `TestListKey-${ Common.generateWord(10) }`;
 const elementForSearch = `SearchField-${ Common.generateWord(5) }`;
 const keyToAddParameters = { elementsCount: 500000, keyName, elementStartWith: 'listElement' };
@@ -32,8 +32,8 @@ fixture `List Key verification`
 test
     .meta({ rte: rte.standalone })('Verify that user can search per exact element index in List key in DB with 1 million of fields', async t => {
         // Add 1000000 elements to the list key
-        await populateListWithElements(dbParameters.host, dbParameters.port, keyToAddParameters);
-        await populateListWithElements(dbParameters.host, dbParameters.port, keyToAddParameters);
+        await populateListWithElements(host, port, keyToAddParameters);
+        await populateListWithElements(host, port, keyToAddParameters);
         // Add custom element to the list key
         await browserPage.openKeyDetails(keyName);
         await browserPage.addElementToList(elementForSearch);

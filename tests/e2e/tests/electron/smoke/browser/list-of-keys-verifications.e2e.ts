@@ -12,7 +12,7 @@ const databaseAPIRequests = new DatabaseAPIRequests();
 const apiKeyRequests = new APIKeyRequests();
 
 let keyName = Common.generateWord(10);
-let keyNames: string[] = [];
+const keyNames: string[] = [];
 const keyTTL = '2147476121';
 
 fixture `List of keys verifications`
@@ -34,12 +34,9 @@ test
         }
         await databaseAPIRequests.deleteStandaloneDatabaseApi(ossStandaloneConfig);
     })('Verify that user can scroll List of Keys in DB', async t => {
-        keyNames = [
-            `key-${Common.generateWord(10)}`,
-            `key-${Common.generateWord(10)}`,
-            `key-${Common.generateWord(10)}`,
-            `key-${Common.generateWord(10)}`
-        ];
+        for (let i = 0; i < 4; i++) {
+            keyNames.push(`key-${Common.generateWord(10)}`);
+        }
 
         await browserPage.addStringKey(keyNames[0]);
         await browserPage.addHashKey(keyNames[1]);

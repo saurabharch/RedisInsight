@@ -12,7 +12,7 @@ const databaseHelper = new DatabaseHelper();
 const databaseAPIRequests = new DatabaseAPIRequests();
 const apiKeyRequests = new APIKeyRequests();
 
-const dbParameters = { host: ossStandaloneConfig.host, port: ossStandaloneConfig.port };
+const { host, port } = ossStandaloneConfig;
 const keyName = `TestHashKey-${Common.generateWord(10)}`;
 const fieldForSearch = `SearchField-${Common.generateWord(5)}`;
 const keyToAddParameters = { fieldsCount: 500000, keyName, fieldStartWith: 'hashField', fieldValueStartWith: 'hashValue' };
@@ -31,8 +31,8 @@ fixture `Hash Key fields verification`
     });
 test('Verify that user can search per exact field name in Hash in DB with 1 million of fields', async t => {
     // Add 1000000 fields to the hash key
-    await populateHashWithFields(dbParameters.host, dbParameters.port, keyToAddParameters);
-    await populateHashWithFields(dbParameters.host, dbParameters.port, keyToAddParameters);
+    await populateHashWithFields(host, port, keyToAddParameters);
+    await populateHashWithFields(host, port, keyToAddParameters);
     // Add custom field to the hash key
     await browserPage.openKeyDetails(keyName);
     await browserPage.addFieldToHash(fieldForSearch, 'testHashValue');
