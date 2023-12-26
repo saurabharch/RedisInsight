@@ -123,6 +123,7 @@ describe('EnablementArea', () => {
 
     it('should render add button and open form', () => {
       render(<EnablementArea {...instance(mockedProps)} customTutorials={MOCK_CUSTOM_TUTORIALS_ITEMS} />)
+
       fireEvent.click(screen.getByTestId('open-upload-tutorial-btn'))
       expect(screen.getByTestId('upload-tutorial-form')).toBeInTheDocument()
     })
