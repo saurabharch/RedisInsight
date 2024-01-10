@@ -29,10 +29,17 @@ enum BrowserStorageItem {
   showHiddenRecommendations = 'showHiddenRecommendations',
   OAuthJobId = 'OAuthJobId',
   OAuthAgreement = 'OAuthAgreement',
+  capability = 'capability'
 }
 
 export default BrowserStorageItem
 
 export enum ConfigDBStorageItem {
-  slowLogDurationUnit = 'slowLogDurationUnit'
+  slowLogDurationUnit = 'slowLogDurationUnit',
+  notShowConfirmationRunTutorial = 'notShowConfirmationRunTutorial'
+}
+
+export enum CapabilityStorageItem {
+  source = 'source',
+  tutorialPopoverShown = 'tutorialPopoverShown'
 }
