@@ -1,0 +1,25 @@
+.wrapper {
+  border-radius: 8px;
+  width: 269px;
+  background-color: var(--euiColorLightestShade);
+  height: 100%;
+
+  .title {
+    padding: 16px;
+    font: normal normal 500 14px/17px Graphik, sans-serif;
+    border-bottom: 1px solid var(--separatorColor);
+  }
+
+  .tabs {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    max-height: calc(100% - 50px);
+  }
+
+  .tab:hover {
+    :global(.rdi-pipeline-nav__text) {
+      text-decoration: underline;
+    }
+  }
+}
