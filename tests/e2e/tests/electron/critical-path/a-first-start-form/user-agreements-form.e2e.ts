@@ -7,11 +7,11 @@ import { UserAgreementDialog } from '../../../../pageObjects/dialogs';
 const userAgreementDialog = new UserAgreementDialog();
 const myRedisDatabasePage = new MyRedisDatabasePage();
 
-fixture.skip `Agreements Verification`
+fixture `Agreements Verification`
     .meta({ type: 'critical_path', rte: rte.none })
     .page(commonUrl)
     .requestHooks(Common.mockSettingsResponse())
-test('Verify that user should accept User Agreements to continue working with the application', async t => {
+test.skip('Verify that user should accept User Agreements to continue working with the application', async t => {
     await t.expect(userAgreementDialog.userAgreementsPopup.exists).ok('User Agreements Popup is shown');
     // Verify that I still has agreements popup & cannot add a database
     await t.expect(userAgreementDialog.submitButton.hasAttribute('disabled')).ok('Submit button not disabled by default');
