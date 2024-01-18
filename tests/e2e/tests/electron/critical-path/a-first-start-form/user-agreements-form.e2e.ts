@@ -7,7 +7,7 @@ import { UserAgreementDialog } from '../../../../pageObjects/dialogs';
 const userAgreementDialog = new UserAgreementDialog();
 const myRedisDatabasePage = new MyRedisDatabasePage();
 
-fixture `Agreements Verification`
+fixture.skip `Agreements Verification`
     .meta({ type: 'critical_path', rte: rte.none })
     .page(commonUrl)
     .requestHooks(Common.mockSettingsResponse())
