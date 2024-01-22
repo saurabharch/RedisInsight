@@ -3,14 +3,14 @@ import { EuiIcon, EuiText, EuiTitle, EuiSpacer } from '@elastic/eui'
 import { useDispatch, useSelector } from 'react-redux'
 import { useHistory, useParams } from 'react-router-dom'
 import { guideLinksSelector } from 'uiSrc/slices/content/guide-links'
-import { Pages } from 'uiSrc/constants'
-import { resetWorkbenchEASearch, setWorkbenchEAMinimized } from 'uiSrc/slices/app/context'
 
 import GUIDE_ICONS from 'uiSrc/components/explore-guides/icons'
 import { sendEventTelemetry, TelemetryEvent } from 'uiSrc/telemetry'
 import { connectedInstanceSelector } from 'uiSrc/slices/instances/instances'
 import { keysSelector } from 'uiSrc/slices/browser/keys'
 
+import { openTutorialByPath } from 'uiSrc/slices/panels/insights'
+import { findTutorialPath } from 'uiSrc/utils'
 import styles from './styles.module.scss'
 
 const ExploreGuides = () => {
@@ -23,9 +23,7 @@ const ExploreGuides = () => {
   const history = useHistory()
   const dispatch = useDispatch()
 
-  const handleLinkClick = (tutorial: string, title: string) => {
-    dispatch(setWorkbenchEAMinimized(false))
-
+  const handleLinkClick = (tutorialId: string, title: string) => {
     sendEventTelemetry({
       event: TelemetryEvent.BROWSER_TUTORIAL_CLICKED,
       eventData: {
@@ -36,14 +34,8 @@ const ExploreGuides = () => {
       }
     })
 
-    dispatch(setWorkbenchEAMinimized(false))
-    if (tutorial) {
-      history.push(`${Pages.workbench(instanceId)}?guidePath=${tutorial}`)
-      return
-    }
-
-    dispatch(resetWorkbenchEASearch())
-    history.push(Pages.workbench(instanceId))
+    const tutorialPath = findTutorialPath({ id: tutorialId ?? '' })
+    dispatch(openTutorialByPath(tutorialPath ?? '', history))
   }
 
   return (
@@ -55,13 +47,13 @@ const ExploreGuides = () => {
       <EuiSpacer size="xl" />
       {!!data.length && (
         <div className={styles.guides}>
-          {data.map(({ title, tutorial, icon }) => (
+          {data.map(({ title, tutorialId, icon }) => (
             <div
               key={title}
               role="button"
               tabIndex={0}
               onKeyDown={() => {}}
-              onClick={() => handleLinkClick(tutorial, title)}
+              onClick={() => handleLinkClick(tutorialId, title)}
               className={styles.btn}
               data-testid={`guide-button-${title}`}
             >
