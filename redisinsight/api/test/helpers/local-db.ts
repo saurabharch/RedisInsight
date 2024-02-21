@@ -107,18 +107,9 @@ export const generateNCommandExecutions = async (
       result: encryptData(JSON.stringify([{
         status: 'success',
         response: `"OK_${i}"`,
-        node: {
-          host: 'localhost',
-          port: 6479,
-          slot: 12499
-        }
       }])),
-      nodeOptions: JSON.stringify({
-        host: 'localhost',
-        port: 6479,
-        enableRedirection: true,
-      }),
-      role: 'ALL',
+      nodeOptions: null,
+      role: null,
       mode: 'ASCII',
       encryption: constants.TEST_ENCRYPTION_STRATEGY,
       executionTime: Math.round(Math.random() * 10000),
@@ -590,6 +581,8 @@ export const setAppSettings = async (data: object) => {
 
 const truncateAll = async () => {
   await (await getRepository(repositories.DATABASE)).clear();
+  await (await getRepository(repositories.FEATURE)).clear();
+  await (await getRepository(repositories.FEATURES_CONFIG)).clear();
   await (await getRepository(repositories.CA_CERT_REPOSITORY)).clear();
   await (await getRepository(repositories.CLIENT_CERT_REPOSITORY)).clear();
   await (await getRepository(repositories.CUSTOM_TUTORIAL)).clear();
