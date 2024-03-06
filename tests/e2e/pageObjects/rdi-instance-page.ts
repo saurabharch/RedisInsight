@@ -1,16 +1,15 @@
 import { Selector, t } from 'testcafe';
+import { RdiTemplateDatabaseType, RdiTemplatePipelineType } from '../helpers/constants';
 import { BaseOverviewPage } from './base-overview-page';
 import { RdiNavigationPanel } from './components/navigation/rdi-navigation-panel';
 import { TestConnectionPanel } from './components/rdi/test-connection-panel';
+import { PipelineManagementPanel } from './components/rdi/pipeline-management-panel';
 
 export class RdiInstancePage extends BaseOverviewPage {
 
     NavigationPanel = new RdiNavigationPanel();
     TestConnectionPanel = new TestConnectionPanel();
-
-    //TODO create a Pipeline Management panel
-    //Tabs
-    configurationTab = Selector('[data-testid=rdi-nav-btn-config] div');
+    PipelineManagementPanel = new PipelineManagementPanel();
 
     dryRunButton = Selector('[data-testid=rdi-jobs-dry-run]');
     dryRunSubmitBtn = Selector('[data-testid=dry-run-btn]');
@@ -24,7 +23,6 @@ export class RdiInstancePage extends BaseOverviewPage {
     refreshPipelineIcon = Selector('[data-testid=refresh-pipeline-btn]');
     exportPipelineIcon = Selector('[data-testid=download-pipeline-btn]');
     importPipelineIcon = Selector('[data-testid=upload-pipeline-btn]');
-    applyRefreshBtn = Selector('[data-testid=refresh-pipeline-apply-btn]');
     deployPipelineBtn = Selector('[data-testid=deploy-rdi-pipeline]');
     deployConfirmBtn = Selector('[data-testid=deploy-confirm-btn]');
     uploadPipelineBtn = Selector('[data-testid=submit-btn]');
@@ -32,7 +30,12 @@ export class RdiInstancePage extends BaseOverviewPage {
     closeImportModelBtn = Selector('[data-testid=import-file-modal] button');
 
     configurationInput = Selector('[data-testid=wrapper-rdi-config]');
-    importInput = Selector('[data-testid=import-file-modal-filepicker]');
+    configurationLink = Selector('[data-testid=rdi-pipeline-config-link]');
+
+    jobsInput = Selector('[data-testid=wrapper-rdi-monaco-jobs]');
+    draggableArea = Selector('[data-testid=draggable-area]');
+    dedicatedLanguageSelect = Selector('[data-testid=dedicated-editor-language-select]');
+
     successDeployNotification = Selector('[data-testid=success-deploy-pipeline-notification]');
     errorDeployNotification = Selector('[data-test-subj=toast-error-deploy]');
     failedUploadingPipelineNotification = Selector('[data-testid=result-failed]');
@@ -40,58 +43,17 @@ export class RdiInstancePage extends BaseOverviewPage {
     noPipelineText = Selector('[data-testid=no-pipeline]');
 
     breadcrumbsLink = Selector('[data-testid=my-rdi-instances-btn]');
+    rdiNameLinkBreadcrumbs = Selector('[data-testid=rdi-instance-name]');
 
     // Test Connection
     textConnectionBtn = Selector('[data-testid=rdi-test-connection-btn]');
-    //Jobs
-    addJobBtn = Selector('[data-testid=add-new-job]');
-    jobNameInput = Selector('[data-testid^=job-name-input-]');
-    applyJobNameBtn = Selector('[data-testid=apply-btn]');
-    cancelJobNameBtn = Selector('[data-testid=cancel-btn]');
-    jobItem = Selector('[data-testid*=rdi-nav-job-actions]');
-    deleteConfirmBtn  = Selector('[data-testid=confirm-btn]');
-    jobsPipelineTitle = Selector('[class*=rdi__title]');
 
-    /**
-     * Add Job by name
-     * @param name job name
-     */
-    async addJob(name: string): Promise<void> {
-        await t.click(this.addJobBtn);
-        await t.typeText(this.jobNameInput, name);
-        await t.click(this.applyJobNameBtn);
-    }
-
-    /**
-     * Open Job by name
-     * @param name job name
-     */
-    async openJobByName(name: string): Promise<void> {
-        const jobBtnSelector = Selector(`[data-testid=rdi-nav-job-${name}]`);
-        await t.click(jobBtnSelector);
-    }
-
-    /**
-     * Delete Job by name
-     * @param name job name
-     */
-    async deleteJobByName(name: string): Promise<void> {
-        const jobBtnSelector = Selector(`[data-testid=delete-job-${name}]`);
-        await t.click(jobBtnSelector);
-        await t.click(this.deleteConfirmBtn);
-    }
-
-    /**
-     * Edit Job by name
-     * @param name job name
-     */
-    async editJobByName(name: string, newName: string): Promise<void> {
-        const jobBtnSelector = Selector(`[data-testid=edit-job-name-${name}]`);
-        await t.click(jobBtnSelector)
-            .typeText(this.jobNameInput, newName, { replace: true })
-            .click(this.applyJobNameBtn);
-    }
-
+    //template
+    templateButton = Selector('[data-testid^=template-trigger-]');
+    templateApplyButton = Selector('[data-testid=template-apply-btn]');
+    templateCancelButton = Selector('[data-testid=template-apply-btn]');
+    pipelineDropdown =  Selector('[data-testid=strategy-type-select]');
+    databaseDropdown =  Selector('[data-testid=db-type-select]');
     /**
      * Send a data in Transformation Input
      * @param text The text to send
@@ -106,14 +68,19 @@ export class RdiInstancePage extends BaseOverviewPage {
     }
 
     /**
-     * Import pipeline
-     * @param filePath the name if the file
+     * Select value from template dropdowns
+     * @param pipeline value of pipeline dropdown
+     * @param database value of database dropdown
      */
-    async uploadPipeline(filePath: string): Promise<void> {
-        await t
-            .click(this.importPipelineIcon)
-            .setFilesToUpload(this.importInput, filePath)
-            .click(this.uploadPipelineBtn);
+    async setTemplateDropdownValue(pipeline: RdiTemplatePipelineType, database?: RdiTemplateDatabaseType): Promise<void> {
+        await t.click(this.pipelineDropdown);
+        let selector =  Selector(`[id='${pipeline}']`);
+        await t.click(selector);
+        if(database != null) {
+            await t.click(this.databaseDropdown);
+            selector =  Selector(`[id='${database}']`);
+            await t.click(selector);
+        }
+        await t.click(this.templateApplyButton);
     }
 }
-

@@ -26,7 +26,7 @@ const Jobs = () => {
 
   const history = useHistory()
 
-  const { loading, schema, data } = useSelector(rdiPipelineSelector)
+  const { loading, schema } = useSelector(rdiPipelineSelector)
 
   const { values, setFieldValue } = useFormikContext<IPipeline>()
 
@@ -39,18 +39,16 @@ const Jobs = () => {
 
     jobIndexRef.current = jobIndex
     setEditorValue(values.jobs?.[jobIndexRef.current ?? -1]?.value)
+
+    if (!values.jobs?.[jobIndexRef.current ?? -1]?.value) {
+      setIsPopoverOpen(true)
+    }
   }, [values, rdiInstanceId, decodedJobName, history])
 
   useEffect(() => {
     setDecodedJobName(decodeURIComponent(jobName))
     setIsPanelOpen(false)
   }, [jobName])
-
-  useEffect(() => {
-    if (data !== null && !values.jobs?.[jobIndexRef.current ?? -1]?.value) {
-      setIsPopoverOpen(true)
-    }
-  }, [jobName, data])
 
   useEffect(() => {
     sendPageViewTelemetry({
@@ -77,7 +75,7 @@ const Jobs = () => {
             isPopoverOpen={isPopoverOpen}
             setIsPopoverOpen={setIsPopoverOpen}
             value={values.jobs?.[jobIndexRef.current ?? -1]?.value ?? ''}
-            setFieldValue={(template) => setFieldValue(`jobs.${jobIndexRef.current}.value`, template)}
+            setFieldValue={(template) => setFieldValue(`jobs.${jobIndexRef.current ?? -1}.value`, template)}
             loading={loading}
             source={RdiPipelineTabs.Jobs}
           />

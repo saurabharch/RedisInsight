@@ -21,7 +21,7 @@ const Config = () => {
   const [isPanelOpen, setIsPanelOpen] = useState<boolean>(false)
   const [isPopoverOpen, setIsPopoverOpen] = useState<boolean>(false)
 
-  const { loading: pipelineLoading, schema, data } = useSelector(rdiPipelineSelector)
+  const { loading: pipelineLoading, schema } = useSelector(rdiPipelineSelector)
   const { loading: testingConnections } = useSelector(rdiTestConnectionsSelector)
 
   const { values: { config = '' }, setFieldValue } = useFormikContext<IPipeline>()
@@ -33,13 +33,11 @@ const Config = () => {
     sendPageViewTelemetry({
       name: TelemetryPageView.RDI_CONFIG,
     })
-  }, [])
 
-  useEffect(() => {
-    if (data !== null && !config) {
+    if (!config) {
       setIsPopoverOpen(true)
     }
-  }, [data, config])
+  }, [])
 
   const testConnections = () => {
     setIsPanelOpen(true)
