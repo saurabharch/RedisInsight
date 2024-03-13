@@ -1218,12 +1218,12 @@ workflows:
       - e2e-tests:
           name: E2ETest
           build: docker
-          parallelism: 4
+          parallelism: 2
           requires:
             - Build docker image
       - e2e-app-image:
           name: E2ETest (AppImage)
-          parallelism: 2
+          parallelism: 1
           requires:
             - Build app - Linux (stage)
   # Workflow for feature, bugfix, main branches
