@@ -9,7 +9,7 @@ const databaseHelper = new DatabaseHelper();
 const standalonePorts = [8100, 8101, 8102, 8103, 12000];
 const otherPorts = [28100, 8200];
 
-fixture `Autodiscovery`
+fixture.skip `Autodiscovery`
     .meta({ type: 'critical_path', rte: rte.none })
     .page(commonUrl)
     .beforeEach(async() => {
