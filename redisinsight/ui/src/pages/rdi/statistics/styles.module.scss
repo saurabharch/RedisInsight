@@ -1,0 +1,24 @@
+@import "@elastic/eui/src/global_styling/index";
+
+.pageContainer {
+  @include euiScrollBar;
+
+  overflow: auto;
+  position: relative;
+}
+
+.bodyContainer {
+  :global {
+    .euiPanel:first-child {
+      margin-top: 0;
+    }
+
+    .euiPanel {
+      margin: 16px;
+    }
+
+    .euiPanel:last-child {
+      margin-bottom: 0;
+    }
+  }
+}

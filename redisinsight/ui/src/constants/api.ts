@@ -125,6 +125,7 @@ enum ApiEndpoints {
   CLOUD_ME = 'cloud/me',
   CLOUD_ME_JOBS = 'cloud/me/jobs',
   CLOUD_ME_ACCOUNTS = 'cloud/me/accounts',
+  CLOUD_ME_LOGOUT = 'cloud/me/logout',
   CLOUD_CURRENT = 'current',
 
   CLOUD_SUBSCRIPTION_PLANS = 'cloud/me/subscription/plans',
@@ -135,8 +136,20 @@ enum ApiEndpoints {
   CLOUD_ME_AUTODISCOVERY_DATABASES = 'cloud/me/autodiscovery/databases',
   CLOUD_CAPI_KEYS = 'cloud/me/capi-keys',
 
+  AI_ASSISTANT_CHATS = 'ai/assistant/chats',
+  AI_EXPERT_QUERIES = 'ai/expert/queries',
+
   ANALYTICS_SEND_EVENT = 'analytics/send-event',
   ANALYTICS_SEND_PAGE = 'analytics/send-page',
+
+  RDI_INSTANCES = 'rdi',
+  RDI_PIPELINE = 'pipeline',
+  RDI_PIPELINE_SCHEMA = 'pipeline/schema',
+  RDI_DEPLOY_PIPELINE = 'pipeline/deploy',
+  RDI_TEST_CONNECTIONS = 'pipeline/test-connections',
+  RDI_PIPELINE_STRATEGIES = 'pipeline/strategies',
+  RDI_PIPELINE_TEMPLATE = 'pipeline/template',
+  RDI_STATISTICS = 'statistics',
 }
 
 export enum CustomHeaders {

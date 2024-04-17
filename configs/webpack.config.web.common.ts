@@ -67,7 +67,20 @@ export default {
       'window.app.config.apiPort': JSON.stringify('5540'),
     }),
 
-    new MonacoWebpackPlugin({ languages: ['json', 'javascript', 'typescript'], features: ['!rename'] }),
+    new MonacoWebpackPlugin({
+      languages: ['yaml', 'typescript', 'javascript', 'json', 'sql'],
+      customLanguages: [
+        {
+          label: 'yaml',
+          entry: 'monaco-yaml',
+          worker: {
+            id: 'monaco-yaml/yamlWorker',
+            entry: 'monaco-yaml/yaml.worker'
+          }
+        }
+      ],
+      features: ['!rename']
+    }),
 
     new webpack.IgnorePlugin({
       checkResource(resource) {

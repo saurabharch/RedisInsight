@@ -15,11 +15,12 @@ if (window.__RIPROXYPATH__) {
 const isDevelopment = process.env.NODE_ENV === 'development'
 const isWebApp = process.env.RI_APP_TYPE === 'web'
 
+export const getBaseUrl = () => (!isDevelopment && isWebApp
+  ? `${window.location.origin}/${apiPrefix}/`
+  : `${baseApiUrl}:${apiPort}/${apiPrefix}/`)
+
 const axiosInstance = axios.create({
-  baseURL:
-    !isDevelopment && isWebApp
-      ? `${window.location.origin}/${apiPrefix}/`
-      : `${baseApiUrl}:${apiPort}/${apiPrefix}/`,
+  baseURL: getBaseUrl(),
 })
 
 export const requestInterceptor = (config: AxiosRequestConfig) => {

@@ -1,6 +1,8 @@
 enum BrowserStorageItem {
+  homePage = 'homePage',
   instancesCount = 'instancesCount',
   instancesSorting = 'instancesSorting',
+  rdiInstancesSorting = 'rdiInstancesSorting',
   theme = 'theme',
   browserViewType = 'browserViewType',
   browserSearchMode = 'browserSearchMode',
@@ -11,7 +13,6 @@ enum BrowserStorageItem {
   segmentAnonymousId = 'ajs_anonymous_id',
   wbClientUuid = 'wbClientUuid',
   wbInputHistory = 'wbInputHistory',
-  isEnablementAreaMinimized = 'isEnablementAreaMinimized',
   treeViewDelimiter = 'treeViewDelimiter',
   treeViewSort = 'treeViewSort',
   autoRefreshRate = 'autoRefreshRate',
@@ -31,6 +32,8 @@ enum BrowserStorageItem {
   OAuthAgreement = 'OAuthAgreement',
   insightsPanel = 'insightsPanel',
   capability = 'capability',
+  aiChatSession = 'aiChatSession',
+  selectedAiChat = 'selectedAiChat'
 }
 
 export default BrowserStorageItem

@@ -1,6 +1,7 @@
 import { CloudSsoUtmCampaign, OAuthSocialSource } from 'uiSrc/slices/interfaces'
 
 export const EXTERNAL_LINKS = {
+  redisIo: 'https://redis.io',
   githubRepo: 'https://github.com/RedisInsight/RedisInsight',
   githubIssues: 'https://github.com/RedisInsight/RedisInsight/issues',
   releaseNotes: 'https://github.com/RedisInsight/RedisInsight/releases',
@@ -11,6 +12,8 @@ export const EXTERNAL_LINKS = {
   cloudConsole: 'https://app.redislabs.com/#/databases',
   tryFree: 'https://redis.com/try-free',
   docker: 'https://redis.io/docs/getting-started/install-stack/docker',
+  rdiQuickStart: 'https://docs.redis.com/latest/rdi/quickstart/',
+  rdiTransformation: 'https://docs.redis.com/latest/rdi/data-transformation/data-transformation-pipeline/',
 }
 
 export const UTM_CAMPAINGS: Record<any, string> = {
