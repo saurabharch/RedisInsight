@@ -1,13 +1,6 @@
 import React, { useCallback, useEffect, useState } from 'react'
 import cx from 'classnames'
-import {
-  EuiTextColor,
-  EuiText,
-  EuiTitle,
-  EuiLink,
-  EuiButton,
-  EuiIcon,
-} from '@elastic/eui'
+import { EuiButton, EuiIcon, EuiLink, EuiText, EuiTextColor, EuiTitle, } from '@elastic/eui'
 import { useSelector } from 'react-redux'
 
 import { ReactComponent as MobileIcon } from 'uiSrc/assets/img/icons/mobile_module_not_loaded.svg'
@@ -15,7 +8,7 @@ import { ReactComponent as DesktopIcon } from 'uiSrc/assets/img/icons/module_not
 import TelescopeImg from 'uiSrc/assets/img/telescope-dark.svg'
 import { ReactComponent as CheerIcon } from 'uiSrc/assets/img/icons/cheer.svg'
 import { MODULE_NOT_LOADED_CONTENT as CONTENT, MODULE_TEXT_VIEW } from 'uiSrc/constants'
-import { RedisDefaultModules, OAuthSocialSource } from 'uiSrc/slices/interfaces'
+import { OAuthSocialAction, OAuthSocialSource, RedisDefaultModules } from 'uiSrc/slices/interfaces'
 import { OAuthConnectFreeDb, OAuthSsoHandlerDialog } from 'uiSrc/components'
 import { freeInstancesSelector } from 'uiSrc/slices/instances/instances'
 import { getUtmExternalLink } from 'uiSrc/utils/links'
@@ -160,7 +153,10 @@ const ModuleNotLoaded = ({ moduleName, id, type = 'workbench', onClose }: IProps
                   onClick={(e) => {
                     ssoCloudHandlerClick(
                       e,
-                      type === 'browser' ? OAuthSocialSource.BrowserSearch : OAuthSocialSource[module]
+                      {
+                        source: type === 'browser' ? OAuthSocialSource.BrowserSearch : OAuthSocialSource[module],
+                        action: OAuthSocialAction.Create
+                      }
                     )
                     onFreeDatabaseClick()
                   }}
