@@ -22,7 +22,7 @@ const rdiInstance: AddNewRdiParameters = {
 };
 
 //skip the tests until rdi integration is added
-fixture.skip `Add job`
+fixture `Add job`
     .meta({ type: 'critical_path', feature: 'rdi' })
     .page(commonUrl)
     .beforeEach(async() => {
