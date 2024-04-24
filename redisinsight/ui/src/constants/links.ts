@@ -12,6 +12,8 @@ export const EXTERNAL_LINKS = {
   cloudConsole: 'https://app.redislabs.com/#/databases',
   tryFree: 'https://redis.com/try-free',
   docker: 'https://redis.io/docs/install/install-stack/docker',
+  rdiQuickStart: 'https://docs.redis.com/latest/rdi/quickstart/',
+  rdiTransformation: 'https://docs.redis.com/latest/rdi/data-transformation/data-transformation-pipeline/',
 }
 
 export const UTM_CAMPAINGS: Record<any, string> = {

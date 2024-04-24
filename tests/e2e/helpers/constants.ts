@@ -74,6 +74,7 @@ export enum ResourcePath {
     RedisSentinel = '/redis-sentinel',
     ClusterDetails = '/cluster-details',
     SyncFeatures = '/features/sync',
+    Rdi = '/rdi'
 }
 
 export enum ExploreTabs {
@@ -90,5 +91,32 @@ export enum Compatibility {
 export enum ChatBotTabs {
     General  = 'General',
     Database = 'Database',
+}
+
+export enum RedisOverviewPage {
+    DataBase  = 'Redis Databases',
+    Rdi = 'My RDI instances',
+}
+
+export enum TextConnectionSection {
+    Success  = 'success',
+    Failed = 'failed',
+}
+
+export enum RdiTemplatePipelineType {
+    Ingest  = 'ingest',
+    WriteBehind = 'write-behind',
+}
+
+export enum RdiTemplateDatabaseType  {
+    SqlServer  = 'sql',
+    Oracle = 'oracle',
+    MyQal = 'my-sql',
+}
+
+export enum RdiPopoverOptions  {
+    Server  = 'server',
+    File = 'file',
+    Pipeline = 'empty',
 }
 

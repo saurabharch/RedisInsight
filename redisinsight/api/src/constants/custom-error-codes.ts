@@ -49,4 +49,7 @@ export enum CustomErrorCodes {
   QueryAiForbidden = 11_352,
   QueryAiBadRequest = 11_353,
   QueryAiNotFound = 11_354,
+
+  // RDI errors [11400, 11599]
+  RdiDeployPipelineFailure = 11_401,
 }
