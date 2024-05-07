@@ -39,8 +39,7 @@ import { routes } from './app.routes';
 const SERVER_CONFIG = config.get('server') as Config['server'];
 const PATH_CONFIG = config.get('dir_path') as Config['dir_path'];
 
-console.log(process.env)
-
+console.log(config)
 @Module({
   imports: [
     LocalDatabaseModule,
