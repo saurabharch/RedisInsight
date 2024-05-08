@@ -38,8 +38,12 @@ import { routes } from './app.routes';
 
 const SERVER_CONFIG = config.get('server') as Config['server'];
 const PATH_CONFIG = config.get('dir_path') as Config['dir_path'];
+const SSO = config.get('cloud') as Config['cloud'];
+const AI = config.get('ai') as Config['ai'];
 
-console.log(config)
+console.log(SSO);
+console.log(AI);
+
 @Module({
   imports: [
     LocalDatabaseModule,
