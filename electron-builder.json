@@ -177,8 +177,7 @@
       "--talk-name=org.freedesktop.Notifications",
       "--talk-name=org.freedesktop.Flatpak",
       "--socket=fallback-x11",
-      "--socket=wayland",
-      "--socket=x11"
+      "--socket=wayland"
     ]
   },
   "directories": {
